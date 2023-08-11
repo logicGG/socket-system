@@ -1,0 +1,24 @@
+spring:
+  #mysql
+  datasource:
+    url: jdbc:mysql://42.193.177.218:3306/socket_test?serverTimezone=UTC&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: z2122472
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: club.ovelya.socketsystem.config.MyDialect
+        hbm2ddl:
+          #自动创建表，模式：create create-drop update validate none
+          auto: update
+        show_sql: true
+    open-in-view: true
+  data:
+    #redis
+    redis:
+      host: 42.193.177.218
+      port: 6379
+      password: z2122472
+server:
+  port: 8080
