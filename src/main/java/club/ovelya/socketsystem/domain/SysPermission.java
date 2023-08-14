@@ -1,14 +1,17 @@
 package club.ovelya.socketsystem.domain;
 
+import club.ovelya.socketsystem.domain.parent.AbstractBaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Data
-public class SysPermission implements Serializable {
+@Getter
+@Setter
+public class SysPermission extends AbstractBaseTimeEntity implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;
@@ -21,6 +24,7 @@ public class SysPermission implements Serializable {
     private String parentIds; //父编号列表
     private Boolean available = Boolean.FALSE;
     @ManyToMany
-    @JoinTable(name = "SysRolePermission", joinColumns = {@JoinColumn(name = "permissionId")}, inverseJoinColumns = {@JoinColumn(name = "roleId")})
+    @JoinTable(name = "sys_role_permission", joinColumns = {@JoinColumn(name = "permission_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
     private List<SysRole> roles;
+
 }
