@@ -9,23 +9,22 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
-    @Resource
-    private UserInfoRepository userInfoRepository;
 
-    @Override
-    public UserInfo findByUsername(String username) {
-        return userInfoRepository.findByUsername(username);
+  @Resource
+  private UserInfoRepository userInfoRepository;
+
+  @Override
+  public UserInfo findByUsername(String username) {
+    return userInfoRepository.findByUsername(username);
+  }
+
+  @Override
+  public void registerUser(String username, String name, String password) {
+    if (userInfoRepository.findByUsername(username) != null) {
+      throw new RuntimeException("用户名已存在！");
     }
-
-    @Override
-    public String registerUser(String username, String name, String password) {
-        String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-        try {
-            userInfoRepository.save(new UserInfo(username, name, hashed));
-            return "success";
-        } catch (Exception e) {
-            return e.toString();
-        }
-
-    }
+    //加密明文密码
+    String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
+    userInfoRepository.save(new UserInfo(username, name, hashed));
+  }
 }
