@@ -57,7 +57,7 @@ public class ShiroConfig {
   public RedisManager redisManager() {
     RedisManager redisManager = new RedisManager();
     //设置一小时超时，单位是秒
-    redisManager.setExpire(3600);
+//    redisManager.setExpire(3600);
     return redisManager;
   }
 }

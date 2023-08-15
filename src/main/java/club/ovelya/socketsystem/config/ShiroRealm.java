@@ -6,7 +6,6 @@ import jakarta.annotation.Resource;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -32,9 +31,6 @@ public class ShiroRealm extends AuthorizingRealm {
     UserInfo user = userInfoService.findByUsername(username);
     if (user == null) {
       throw new UnknownAccountException("用户名错误！");
-    }
-    if (user.getState() == (byte) 0) {
-      throw new LockedAccountException("用户未验证！");
     }
     String userPassword = user.getPassword();
     return new SimpleAuthenticationInfo(username, userPassword, null, getName());
