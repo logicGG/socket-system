@@ -86,30 +86,30 @@
       <groupId>de.svenkubiak</groupId>
       <version>0.4.3</version>
     </dependency>
-    <dependency>
-      <artifactId>shiro-redis</artifactId>
-      <exclusions>
-        <exclusion>
-          <artifactId>shiro-core</artifactId>
-          <groupId>org.apache.shiro</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>shiro-core</artifactId>
-          <groupId>org.apache.shiro</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jedis</artifactId>
-          <groupId>redis.clients</groupId>
-        </exclusion>
-      </exclusions>
-      <groupId>org.crazycake</groupId>
-      <version>3.3.1</version>
-    </dependency>
-    <dependency>
-      <artifactId>jedis</artifactId>
-      <groupId>redis.clients</groupId>
-      <version>4.4.0</version>
-    </dependency>
+    <!--    <dependency>-->
+    <!--      <artifactId>shiro-redis</artifactId>-->
+    <!--      <exclusions>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>shiro-core</artifactId>-->
+    <!--          <groupId>org.apache.shiro</groupId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>shiro-core</artifactId>-->
+    <!--          <groupId>org.apache.shiro</groupId>-->
+    <!--        </exclusion>-->
+    <!--        <exclusion>-->
+    <!--          <artifactId>jedis</artifactId>-->
+    <!--          <groupId>redis.clients</groupId>-->
+    <!--        </exclusion>-->
+    <!--      </exclusions>-->
+    <!--      <groupId>org.crazycake</groupId>-->
+    <!--      <version>3.3.1</version>-->
+    <!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <artifactId>jedis</artifactId>-->
+    <!--      <groupId>redis.clients</groupId>-->
+    <!--      <version>4.4.0</version>-->
+    <!--    </dependency>-->
     <!--swagger-->
     <dependency>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>

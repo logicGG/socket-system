@@ -11,11 +11,13 @@ import jakarta.persistence.ManyToMany;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class SysRole extends AbstractBaseTimeEntity implements Serializable {
 
   @Id
@@ -35,4 +37,9 @@ public class SysRole extends AbstractBaseTimeEntity implements Serializable {
       @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "uid")})
   private List<UserInfo> userInfoList;
 
+  public SysRole(String role, String description, Boolean available) {
+    this.role = role;
+    this.description = description;
+    this.available = available;
+  }
 }

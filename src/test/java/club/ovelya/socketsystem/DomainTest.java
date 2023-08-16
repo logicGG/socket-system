@@ -5,7 +5,6 @@ import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.domain.SysRole;
 import club.ovelya.socketsystem.domain.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,14 +21,10 @@ public class DomainTest {
 
   @Test
   public void userInfoRepositoryTest() {
-    UserInfo userInfo = userInfoService.findByUsername("admin");
-    List<SysRole> roleList = userInfo.getRoleList();
-    SysRole sysRole = new SysRole();
-    sysRole.setRole("user");
-    sysRole.setDescription("user");
-    roleRepository.save(sysRole);
-    roleList.add(roleRepository.findByRole("user"));
-    userInfoRepository.save(userInfo);
+    UserInfo userInfo = userInfoRepository.findByUsername("admin");
+    for (SysRole role : userInfo.getRoleList()) {
+      System.out.println(role.getRole());
+    }
   }
 
 }

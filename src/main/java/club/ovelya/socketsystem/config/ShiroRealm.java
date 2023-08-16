@@ -1,8 +1,10 @@
 package club.ovelya.socketsystem.config;
 
+import club.ovelya.socketsystem.dao.UserInfoRepository;
+import club.ovelya.socketsystem.domain.SysRole;
 import club.ovelya.socketsystem.domain.UserInfo;
-import club.ovelya.socketsystem.service.UserInfoService;
 import jakarta.annotation.Resource;
+import java.util.List;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -10,17 +12,25 @@ import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
 public class ShiroRealm extends AuthorizingRealm {
 
   @Resource
-  private UserInfoService userInfoService;
+  private UserInfoRepository userInfoRepository;
 
   @Override
   protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-    return null;
+    String username = (String) principalCollection.getPrimaryPrincipal();
+    SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
+
+    List<SysRole> roleList = userInfoRepository.findByUsername(username).getRoleList();
+    for (SysRole role : roleList) {
+      simpleAuthorizationInfo.addRole(role.getRole());
+    }
+    return simpleAuthorizationInfo;
   }
 
   @Override
@@ -28,7 +38,7 @@ public class ShiroRealm extends AuthorizingRealm {
       throws AuthenticationException {
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     String username = usernamePasswordToken.getUsername();
-    UserInfo user = userInfoService.findByUsername(username);
+    UserInfo user = userInfoRepository.findByUsername(username);
     if (user == null) {
       throw new UnknownAccountException("用户名错误！");
     }

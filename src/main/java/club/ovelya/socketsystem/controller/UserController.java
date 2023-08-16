@@ -1,13 +1,15 @@
 package club.ovelya.socketsystem.controller;
 
 import club.ovelya.socketsystem.service.UserInfoService;
+import club.ovelya.socketsystem.utils.HttpStatusUtils;
 import club.ovelya.socketsystem.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +29,24 @@ public class UserController {
   @PostMapping("/login")
   public R<?> login(
       String username, String password) {
-    Subject subject = SecurityUtils.getSubject();
-    UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
     try {
-      subject.login(usernamePasswordToken);
+      userInfoService.loginUser(username, password);
       return R.success();
+    } catch (IncorrectCredentialsException e) {
+      return R.custom(HttpStatusUtils.UNAUTHORIZED, "密码错误", null);
     } catch (Exception e) {
       return R.failMsg(e.getMessage());
     }
+  }
+
+  @Operation(summary = "退出登录")
+  @GetMapping("/logout")
+  public R<?> logout() {
+    Subject subject = SecurityUtils.getSubject();
+    if (subject.isAuthenticated()) {
+      subject.logout();
+    }
+    return R.success();
   }
 
   @Operation(summary = "用户注册", description = "User register api")
@@ -52,8 +64,11 @@ public class UserController {
   }
 
   @GetMapping("/hello")
-  public String hello() {
-    return "hello";
+  @RequiresRoles("admin")
+  public Object hello() {
+    Subject subject = SecurityUtils.getSubject();
+    Object principal = subject.getPrincipal();
+    return R.custom("200", "", principal);
   }
 
 
