@@ -24,7 +24,7 @@ spring:
     #        show_sql: true
     open-in-view: true
   data:
-    #redis
+    #redis1
     redis:
       host: 42.193.177.218
       port: 6379
