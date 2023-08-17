@@ -4,6 +4,8 @@ import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.domain.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
 import jakarta.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -16,28 +18,30 @@ public class UserInfoServiceImpl implements UserInfoService {
   @Resource
   private UserInfoRepository userInfoRepository;
 
+
   @Override
-  public void registerUser(String username, String name, String password) {
-    if (userInfoRepository.findByUsername(username) != null) {
+  public void registerUser(UserInfo userInfo) {
+    if (userInfoRepository.findByUsername(userInfo.getUsername()) != null) {
       throw new RuntimeException("用户名已存在！");
     }
-    //加密明文密码
-    String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
-    userInfoRepository.save(new UserInfo(username, name, hashed));
+    String hashed = BCrypt.hashpw(userInfo.getPassword(), BCrypt.gensalt());
+    userInfo.setPassword(hashed);
+    userInfoRepository.save(userInfo);
   }
 
   @Override
-  public void loginUser(String username, String password) {
-    if ("".equals(username)) {
+  public void loginUser(UsernamePasswordToken usernamePasswordToken) {
+    if ("".equals(usernamePasswordToken.getUsername())) {
       throw new RuntimeException("用户名不能为空");
     }
-    if ("".equals(password)) {
+    if ("".equals(Arrays.toString(usernamePasswordToken.getPassword()))) {
       throw new RuntimeException("密码不能为空");
     }
     Subject subject = SecurityUtils.getSubject();
-    UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken(username, password);
     subject.login(usernamePasswordToken);
+    UserInfo userInfo = userInfoRepository.findByUsername(usernamePasswordToken.getUsername());
+    userInfo.setLastLoginTime(LocalDateTime.now());
+    userInfo.setLastLoginIP(subject.getSession().getHost());
+    userInfoRepository.save(userInfo);
   }
-
-
 }

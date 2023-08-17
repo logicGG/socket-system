@@ -25,7 +25,7 @@ public class SysRole extends AbstractBaseTimeEntity implements Serializable {
   private Integer id;
   private String role;
   private String description;//描述
-  private Boolean available = Boolean.FALSE;//是否可用
+  private Boolean available = Boolean.TRUE;//是否可用
 
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "sys_role_permission", joinColumns = {

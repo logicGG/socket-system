@@ -2,12 +2,12 @@ package club.ovelya.socketsystem;
 
 import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.domain.SysRole;
-import club.ovelya.socketsystem.domain.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 
 @SpringBootTest
 public class DomainTest {
@@ -19,12 +19,17 @@ public class DomainTest {
   @Autowired
   private SysRoleRepository roleRepository;
 
+  @Autowired
+  private JavaMailSender mailSender;
+
   @Test
   public void userInfoRepositoryTest() {
-    UserInfo userInfo = userInfoRepository.findByUsername("admin");
-    for (SysRole role : userInfo.getRoleList()) {
-      System.out.println(role.getRole());
-    }
+    SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setFrom("ovelya@qq.com");
+    mailMessage.setTo("ovelya@qq.com");
+    mailMessage.setSubject("test");
+    mailMessage.setText("test");
+    mailSender.send(mailMessage);
   }
 
 }

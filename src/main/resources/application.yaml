@@ -29,6 +29,11 @@ spring:
       host: 42.193.177.218
       port: 6379
       password: z2122472
+  mail:
+    host: smtp.qq.com
+    username: ovelya@qq.com
+    password: zeglbrnpxgzhbfcf
+    default-encoding: UTF-8
 server:
   port: 8080
 springdoc:
