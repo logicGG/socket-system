@@ -2,7 +2,6 @@ package club.ovelya.socketsystem.domain;
 
 import club.ovelya.socketsystem.domain.parent.AbstractBaseTimeEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -26,11 +25,6 @@ public class SysRole extends AbstractBaseTimeEntity implements Serializable {
   private String role;
   private String description;//描述
   private Boolean available = Boolean.TRUE;//是否可用
-
-  @ManyToMany(fetch = FetchType.EAGER)
-  @JoinTable(name = "sys_role_permission", joinColumns = {
-      @JoinColumn(name = "role_id")}, inverseJoinColumns = {@JoinColumn(name = "permission_id")})
-  private List<SysPermission> permissions;
 
   @ManyToMany(targetEntity = UserInfo.class)
   @JoinTable(name = "sys_user_role", joinColumns = {

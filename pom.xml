@@ -25,6 +25,11 @@
       <artifactId>spring-boot-starter-mail</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
+    <!--html模板-->
+    <dependency>
+      <artifactId>spring-boot-starter-thymeleaf</artifactId>
+      <groupId>org.springframework.boot</groupId>
+    </dependency>
     <dependency>
       <artifactId>spring-boot-devtools</artifactId>
       <groupId>org.springframework.boot</groupId>

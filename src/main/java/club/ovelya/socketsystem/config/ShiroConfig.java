@@ -50,9 +50,6 @@ public class ShiroConfig {
     //设置安全管理器
     shiroFilterFactoryBean.setSecurityManager(securityManager);
     Map<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-//    filterChainDefinitionMap.put("/hello","roles[admin]");
-//    filterChainDefinitionMap.put("/logout","logout");
-//    shiroFilterFactoryBean.setUnauthorizedUrl("/401");
     shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
     return shiroFilterFactoryBean;
   }
