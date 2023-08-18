@@ -5,6 +5,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 
 public interface UserInfoService {
 
+
   /**
    * 用户注册
    */
@@ -15,4 +16,10 @@ public interface UserInfoService {
    */
   void loginUser(UsernamePasswordToken usernamePasswordToken);
 
+  //给用户添加角色
+  void addRoleToUser(String username, String role);
+
+  void sendVerifyMail();
+
+  void verifyUser(String encodeUsername);
 }

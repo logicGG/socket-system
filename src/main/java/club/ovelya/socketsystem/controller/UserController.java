@@ -7,7 +7,6 @@ import club.ovelya.socketsystem.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -15,13 +14,16 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
 @Tag(name = "用户接口", description = "user api")
+@RequestMapping("/user")
 public class UserController {
 
   @Autowired
@@ -61,10 +63,26 @@ public class UserController {
     }
   }
 
-  @GetMapping("/hello")
-  public Object hello(@Email String email) {
-    return R.custom("200", "", email);
+  @Operation(summary = "请求发送验证邮件")
+  @GetMapping("/verify")
+  public R<?> sendVerifyMail() {
+    try {
+      userInfoService.sendVerifyMail();
+      return R.success();
+    } catch (Exception e) {
+      return R.failMsg(e.getMessage());
+    }
   }
 
+  @Operation(summary = "验证邮箱")
+  @GetMapping("/verify/{encodeUsername}")
+  public R<?> verify(@PathVariable String encodeUsername) {
+    try {
+      userInfoService.verifyUser(encodeUsername);
+      return R.success();
+    } catch (Exception e) {
+      return R.failMsg(e.getMessage());
+    }
+  }
 
 }

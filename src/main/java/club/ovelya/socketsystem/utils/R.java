@@ -21,10 +21,6 @@ public class R<T> extends ResponseEntity<Message<?>> {
     return new R<>(HttpStatusUtils.SUCCESS, "成功");
   }
 
-  public static <T> R<T> success(T data) {
-    return new R<>(HttpStatusUtils.SUCCESS, "成功", data);
-  }
-
   public static <T> R<T> failMsg(String msg) {
     return new R<>(HttpStatusUtils.UNAUTHORIZED, msg);
   }

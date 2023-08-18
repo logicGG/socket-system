@@ -1,23 +1,34 @@
 package club.ovelya.socketsystem.service.impl;
 
+import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
+import club.ovelya.socketsystem.domain.SysRole;
 import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
-import jakarta.annotation.Resource;
+import club.ovelya.socketsystem.utils.AESUtil;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
-  @Resource
+  private final ConcurrentHashMap<String, LocalDateTime> requestLimitMap = new ConcurrentHashMap<>();
+  @Autowired
   private UserInfoRepository userInfoRepository;
-
+  @Autowired
+  private SysRoleRepository sysRoleRepository;
+  @Autowired
+  private MailService mailService;
 
   @Override
   public void registerUser(UserInfo userInfo) {
@@ -42,6 +53,54 @@ public class UserInfoServiceImpl implements UserInfoService {
     UserInfo userInfo = userInfoRepository.findByUsername(usernamePasswordToken.getUsername());
     userInfo.setLastLoginTime(LocalDateTime.now());
     userInfo.setLastLoginIP(subject.getSession().getHost());
+    userInfoRepository.save(userInfo);
+  }
+
+  @Override
+  public void addRoleToUser(String username, String role) {
+    UserInfo userInfo = userInfoRepository.findByUsername(username);
+    List<SysRole> roleList = userInfo.getRoleList();
+    SysRole sysRole = sysRoleRepository.findByRole(role);
+    roleList.add(sysRole);
+    userInfoRepository.save(userInfo);
+  }
+
+  @Override
+  public void sendVerifyMail() {
+    String username = SecurityUtils.getSubject().getPrincipal().toString();
+    LocalDateTime lastSendTime = requestLimitMap.get(username);
+    if (username == null) {
+      throw new RuntimeException("请先登录");
+    }
+    if (lastSendTime != null) {
+      Duration duration = Duration.between(lastSendTime, LocalDateTime.now());
+      //两分钟内只能发送一次
+      if (duration.toMillis() < 120000) {
+        throw new RuntimeException("请求太频繁");
+      }
+    }
+    UserInfo userInfo = userInfoRepository.findByUsername(username);
+    if (userInfo.getState() == 1) {
+      throw new RuntimeException("账号已激活");
+    }
+    String encodeUsername = AESUtil.encrypt(username);
+    mailService.sendVerifyMail(userInfo.getEmail(), encodeUsername);
+    requestLimitMap.put(username, LocalDateTime.now());
+  }
+
+  @Override
+  public void verifyUser(String encodeUsername) {
+    String decodeUsername = AESUtil.decrypt(encodeUsername);
+    UserInfo userInfo = userInfoRepository.findByUsername(decodeUsername);
+    if (userInfo.getState() == 1) {
+      throw new RuntimeException("账号已激活，请勿重复验证");
+    }
+    //激活账号
+    userInfo.setState(1);
+    //加上普通用户角色
+    List<SysRole> roleList = userInfo.getRoleList();
+    SysRole sysRole = sysRoleRepository.findByRole("user");
+    roleList.add(sysRole);
     userInfoRepository.save(userInfo);
   }
 }

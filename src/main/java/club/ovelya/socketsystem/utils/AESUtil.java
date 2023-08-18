@@ -46,13 +46,9 @@ public class AESUtil {
   public static String encrypt(String content) {
     try {
       Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);// 创建密码器
-
       byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
-
       cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(ASSETS_DEV_PWD_FIELD));// 初始化为加密模式的密码器
-
       byte[] result = cipher.doFinal(byteContent);// 加密
-
       return encoder.encodeToString(result);//通过Base64转码返回
     } catch (Exception ex) {
       Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
@@ -72,10 +68,8 @@ public class AESUtil {
     try {
       //实例化
       Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
-
       //使用密钥初始化，设置为解密模式
       cipher.init(Cipher.DECRYPT_MODE, getSecretKey(ASSETS_DEV_PWD_FIELD));
-
       //执行操作
       byte[] result = cipher.doFinal(decoder.decode(content));
       return new String(result, StandardCharsets.UTF_8);
@@ -90,7 +84,7 @@ public class AESUtil {
   /**
    * 生成加密秘钥
    *
-   * @return 密钥
+   * @return AES密钥
    */
   private static SecretKeySpec getSecretKey(String password) {
     //返回生成指定算法密钥生成器的 KeyGenerator 对象

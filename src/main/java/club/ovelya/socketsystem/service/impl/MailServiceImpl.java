@@ -3,6 +3,7 @@ package club.ovelya.socketsystem.service.impl;
 import club.ovelya.socketsystem.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-
+@Email
 @Service
 public class MailServiceImpl implements MailService {
 
@@ -52,9 +53,9 @@ public class MailServiceImpl implements MailService {
   }
 
   @Override
-  public void sendVerifyMail(String to, String hash) {
+  public void sendVerifyMail(String to, String encodeUsername) {
     Context context = new Context();
-    context.setVariable("url", baseUrl + ":" + port + "/" + hash);
+    context.setVariable("url", baseUrl + ":" + port + "/user/verify/" + encodeUsername);
     String emailContent = templateEngine.process("emailTemplate", context);
     sendHtmlMail(to, "【ovelya】账号验证邮件", emailContent);
 
