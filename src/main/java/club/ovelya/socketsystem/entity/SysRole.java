@@ -1,6 +1,6 @@
-package club.ovelya.socketsystem.domain;
+package club.ovelya.socketsystem.entity;
 
-import club.ovelya.socketsystem.domain.parent.AbstractBaseTimeEntity;
+import club.ovelya.socketsystem.entity.parent.AbstractBaseTimeEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;

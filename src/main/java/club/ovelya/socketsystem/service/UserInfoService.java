@@ -1,6 +1,6 @@
 package club.ovelya.socketsystem.service;
 
-import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.entity.UserInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 
 public interface UserInfoService {

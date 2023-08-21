@@ -1,6 +1,6 @@
 package club.ovelya.socketsystem.dao;
 
-import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 

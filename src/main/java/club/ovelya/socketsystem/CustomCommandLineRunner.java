@@ -2,8 +2,8 @@ package club.ovelya.socketsystem;
 
 import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.domain.SysRole;
-import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.entity.SysRole;
+import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;

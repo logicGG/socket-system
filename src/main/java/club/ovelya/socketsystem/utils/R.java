@@ -9,11 +9,11 @@ public class R<T> extends ResponseEntity<Message<?>> {
     super(status);
   }
 
-  public R(String code, String msg, T data) {
+  public R(int code, String msg, T data) {
     super(Message.custom(code, msg, data), Message.num2HttpStatus(code));
   }
 
-  public R(String code, String msg) {
+  public R(int code, String msg) {
     super(Message.custom(code, msg), Message.num2HttpStatus(code));
   }
 
@@ -25,7 +25,7 @@ public class R<T> extends ResponseEntity<Message<?>> {
     return new R<>(HttpStatusUtils.UNAUTHORIZED, msg);
   }
 
-  public static <T> R<T> custom(String code, String msg, T data) {
+  public static <T> R<T> custom(int code, String msg, T data) {
     return new R<>(code, msg, data);
   }
 }

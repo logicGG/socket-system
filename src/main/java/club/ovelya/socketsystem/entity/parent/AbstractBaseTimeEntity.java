@@ -1,4 +1,4 @@
-package club.ovelya.socketsystem.domain.parent;
+package club.ovelya.socketsystem.entity.parent;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

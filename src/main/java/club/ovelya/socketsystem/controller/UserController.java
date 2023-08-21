@@ -1,6 +1,6 @@
 package club.ovelya.socketsystem.controller;
 
-import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
 import club.ovelya.socketsystem.utils.HttpStatusUtils;
 import club.ovelya.socketsystem.utils.R;
@@ -84,5 +84,4 @@ public class UserController {
       return R.failMsg(e.getMessage());
     }
   }
-
 }

@@ -2,8 +2,8 @@ package club.ovelya.socketsystem.service.impl;
 
 import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.domain.SysRole;
-import club.ovelya.socketsystem.domain.UserInfo;
+import club.ovelya.socketsystem.entity.SysRole;
+import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
 import club.ovelya.socketsystem.utils.AESUtil;

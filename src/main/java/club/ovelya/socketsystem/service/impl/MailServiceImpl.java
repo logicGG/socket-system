@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -27,6 +28,7 @@ public class MailServiceImpl implements MailService {
   @Value("${server.port}")
   private String port;
 
+  @Async
   @Override
   public void sendSimpleMail(String to, String subject, String content) {
     SimpleMailMessage message = new SimpleMailMessage();
@@ -37,6 +39,7 @@ public class MailServiceImpl implements MailService {
     mailSender.send(message);
   }
 
+  @Async
   @Override
   public void sendHtmlMail(String to, String subject, String content) {
     MimeMessage message = mailSender.createMimeMessage();
@@ -52,12 +55,12 @@ public class MailServiceImpl implements MailService {
     }
   }
 
+  @Async
   @Override
   public void sendVerifyMail(String to, String encodeUsername) {
     Context context = new Context();
     context.setVariable("url", baseUrl + ":" + port + "/user/verify/" + encodeUsername);
     String emailContent = templateEngine.process("emailTemplate", context);
     sendHtmlMail(to, "【ovelya】账号验证邮件", emailContent);
-
   }
 }

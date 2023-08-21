@@ -11,34 +11,34 @@ import org.springframework.http.HttpStatusCode;
 @NoArgsConstructor
 class Message<T> {
 
-  String status;
+  int status;
   //向前端返回的内容
   String message;
   T data;
 
-  public Message(String status, String message) {
+  public Message(int status, String message) {
     this.status = status;
     this.message = message;
   }
 
-  public Message(String status, String message, T data) {
+  public Message(int status, String message, T data) {
     this.data = data;
     this.status = status;
     this.message = message;
   }
 
-  public static <T> Message<?> custom(String status, String message, T data) {
+  public static <T> Message<?> custom(int status, String message, T data) {
     return new Message<>(status, message, data);
   }
 
-  public static <T> Message<T> custom(String status, String message) {
+  public static <T> Message<T> custom(int status, String message) {
     return new Message<>(status, message);
   }
 
-  public static HttpStatusCode num2HttpStatus(String code) {
+  public static HttpStatusCode num2HttpStatus(int code) {
     HttpStatus status = HttpStatus.NOT_FOUND;
     for (HttpStatus httpStatus : HttpStatus.values()) {
-      boolean b = Integer.parseInt(code) == httpStatus.value();
+      boolean b = code == httpStatus.value();
       if (b) {
         return httpStatus;
       }

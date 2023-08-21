@@ -1,5 +1,6 @@
 package club.ovelya.socketsystem.config;
 
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -24,7 +25,7 @@ public class ShiroConfig {
     DefaultWebSecurityManager defaultWebSecurityManager = new DefaultWebSecurityManager(
         shiroRealm());
     //设置redis管理器
-//    defaultWebSecurityManager.setCacheManager(redisCacheManager());
+    //defaultWebSecurityManager.setCacheManager(redisCacheManager());
     //设置cookie管理器
     defaultWebSecurityManager.setRememberMeManager(rememberMeManager());
     return defaultWebSecurityManager;
@@ -94,5 +95,15 @@ public class ShiroConfig {
     app.setProxyTargetClass(true);
     return app;
   }
-
+//  @Bean("delegatingFilterProxy")
+//  public FilterRegistrationBean<?> delegatingFilterProxy() {
+//    FilterRegistrationBean<DelegatingFilterProxy> registration = new FilterRegistrationBean<>();
+//    DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+//    proxy.setTargetBeanName("shiroFilter");
+//    proxy.setTargetFilterLifecycle(true);
+//    registration.setFilter(proxy);
+//    registration.setAsyncSupported(true);
+//    registration.setDispatcherTypes(ASYNC, REQUEST, FORWARD, INCLUDE, ERROR);
+//    return registration;
+//  }
 }

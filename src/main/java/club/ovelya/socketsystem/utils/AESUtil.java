@@ -6,12 +6,11 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +18,7 @@ import org.springframework.stereotype.Component;
  * @version V1.0 &#064;desc  AES 加密工具类
  */
 @Component
+@Slf4j
 public class AESUtil {
 
   private static final String KEY_ALGORITHM = "AES";
@@ -50,8 +50,8 @@ public class AESUtil {
       cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(ASSETS_DEV_PWD_FIELD));// 初始化为加密模式的密码器
       byte[] result = cipher.doFinal(byteContent);// 加密
       return encoder.encodeToString(result);//通过Base64转码返回
-    } catch (Exception ex) {
-      Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
 
     return null;
@@ -73,9 +73,8 @@ public class AESUtil {
       //执行操作
       byte[] result = cipher.doFinal(decoder.decode(content));
       return new String(result, StandardCharsets.UTF_8);
-    } catch (Exception ex) {
-      ex.printStackTrace();
-      Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
 
     return null;
@@ -98,8 +97,8 @@ public class AESUtil {
       //生成一个密钥
       SecretKey secretKey = kg.generateKey();
       return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);// 转换为AES专用密钥
-    } catch (NoSuchAlgorithmException ex) {
-      Logger.getLogger(AESUtil.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (NoSuchAlgorithmException e) {
+      log.error(e.getMessage());
     }
     return null;
   }
