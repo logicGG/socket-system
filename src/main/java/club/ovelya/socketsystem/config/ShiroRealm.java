@@ -37,12 +37,11 @@ public class ShiroRealm extends AuthorizingRealm {
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
       throws AuthenticationException {
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
-    String username = usernamePasswordToken.getUsername();
-    UserInfo user = userInfoRepository.findByUsername(username);
+    String usernameOrEmail = usernamePasswordToken.getUsername();
+    UserInfo user = userInfoRepository.findByUsernameOrEmail(usernameOrEmail);
     if (user == null) {
       throw new UnknownAccountException("用户名错误！");
     }
-    String userPassword = user.getPassword();
-    return new SimpleAuthenticationInfo(username, userPassword, null, getName());
+    return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), null, getName());
   }
 }

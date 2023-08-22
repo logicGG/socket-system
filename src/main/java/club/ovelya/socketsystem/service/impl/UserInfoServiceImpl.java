@@ -35,6 +35,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     if (userInfoRepository.findByUsername(userInfo.getUsername()) != null) {
       throw new RuntimeException("用户名已存在！");
     }
+    if (userInfoRepository.findByEmail(userInfo.getEmail()) != null) {
+      throw new RuntimeException("邮箱已存在！");
+    }
     String hashed = BCrypt.hashpw(userInfo.getPassword(), BCrypt.gensalt());
     userInfo.setPassword(hashed);
     userInfoRepository.save(userInfo);
@@ -42,7 +45,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
   @Override
   public void loginUser(UsernamePasswordToken usernamePasswordToken) {
-    if ("".equals(usernamePasswordToken.getUsername())) {
+    String usernameOrEmail = usernamePasswordToken.getUsername();
+    if ("".equals(usernameOrEmail)) {
       throw new RuntimeException("用户名不能为空");
     }
     if ("".equals(Arrays.toString(usernamePasswordToken.getPassword()))) {
@@ -50,7 +54,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
     Subject subject = SecurityUtils.getSubject();
     subject.login(usernamePasswordToken);
-    UserInfo userInfo = userInfoRepository.findByUsername(usernamePasswordToken.getUsername());
+    UserInfo userInfo = userInfoRepository.findByUsernameOrEmail(usernameOrEmail);
     userInfo.setLastLoginTime(LocalDateTime.now());
     userInfo.setLastLoginIP(subject.getSession().getHost());
     userInfoRepository.save(userInfo);

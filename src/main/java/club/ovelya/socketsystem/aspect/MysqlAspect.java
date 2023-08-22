@@ -14,6 +14,6 @@ public class MysqlAspect {
 
   @After(value = "execution(* club.ovelya.socketsystem.dao.*.*(..))")
   public void mysqlLog(JoinPoint joinPoint) {
-    log.info("MySQL操作,切入点:" + joinPoint.getSignature().toString());
+    log.debug("MySQL操作,切入点:" + joinPoint.getSignature().toString());
   }
 }
