@@ -158,7 +158,11 @@
       <groupId>org.springdoc</groupId>
       <version>2.2.0</version>
     </dependency>
-
+    <dependency>
+      <artifactId>netty-socketio</artifactId>
+      <groupId>com.corundumstudio.socketio</groupId>
+      <version>1.7.25</version>
+    </dependency>
   </dependencies>
   <description>socket-system</description>
   <groupId>club.ovelya</groupId>

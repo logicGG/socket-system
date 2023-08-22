@@ -4,15 +4,15 @@ import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
-import java.util.Collection;
-import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.eis.MemorySessionDAO;
+import com.corundumstudio.socketio.SocketIOServer;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.javamail.JavaMailSender;
 
 @SpringBootTest
+@Slf4j
 public class DomainTest {
 
   @Autowired
@@ -26,11 +26,15 @@ public class DomainTest {
   @Autowired
   private MailService mailService;
 
+  @Autowired
+  private SocketIOServer socketIOServer;
+
   @Test
   public void userInfoRepositoryTest() {
-    MemorySessionDAO sessionDAO = new MemorySessionDAO();
-    Collection<Session> activeSessions = sessionDAO.getActiveSessions();
-    System.out.println(activeSessions.toString());
+    socketIOServer.start();
+    socketIOServer.addConnectListener(socketIOClient -> {
+      log.info("socket");
+    });
   }
 
 }

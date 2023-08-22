@@ -22,4 +22,5 @@ public interface UserInfoService {
   void sendVerifyMail();
 
   void verifyUser(String encodeUsername);
+
 }
