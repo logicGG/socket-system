@@ -158,6 +158,10 @@
       <groupId>org.springdoc</groupId>
       <version>2.2.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-websocket</artifactId>
+    </dependency>
   </dependencies>
   <description>socket-system</description>
   <groupId>club.ovelya</groupId>
