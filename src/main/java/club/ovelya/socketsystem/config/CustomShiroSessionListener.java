@@ -1,10 +1,11 @@
 package club.ovelya.socketsystem.config;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;
+
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Slf4j
 @Getter
