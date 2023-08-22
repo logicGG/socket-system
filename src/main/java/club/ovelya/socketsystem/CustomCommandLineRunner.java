@@ -5,11 +5,14 @@ import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.domain.SysRole;
 import club.ovelya.socketsystem.domain.UserInfo;
 import club.ovelya.socketsystem.service.UserInfoService;
+import com.corundumstudio.socketio.SocketIOServer;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class CustomCommandLineRunner implements CommandLineRunner {
 
   @Autowired
@@ -18,6 +21,8 @@ public class CustomCommandLineRunner implements CommandLineRunner {
   private UserInfoRepository userInfoRepository;
   @Autowired
   private UserInfoService userInfoService;
+  @Autowired
+  private SocketIOServer socketIOServer;
 
   @Override
   public void run(String... args) {
@@ -41,5 +46,11 @@ public class CustomCommandLineRunner implements CommandLineRunner {
       userInfoService.addRoleToUser("ovelya", "admin");
       userInfoService.addRoleToUser("ovelya", "superAdmin");
     }
+    socketIOServer.addConnectListener((socketIOClient -> {
+      log.debug("123");
+      socketIOClient.sendEvent("connect", "123");
+    }));
+    socketIOServer.start();
+
   }
 }
