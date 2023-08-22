@@ -50,7 +50,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     if ("".equals(usernameOrEmail)) {
       throw new RuntimeException("用户名不能为空");
     }
-    if ("".equals(Arrays.toString(usernamePasswordToken.getPassword()))) {
+    if (Arrays.toString(usernamePasswordToken.getPassword()).isEmpty()) {
       throw new RuntimeException("密码不能为空");
     }
     Subject subject = SecurityUtils.getSubject();
