@@ -1,7 +1,6 @@
 package club.ovelya.socketsystem.config;
 
 import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +18,7 @@ public class WebSocketConfig implements ServletContextInitializer {
     }
 
     @Override
-    public void onStartup(ServletContext servletContext) throws ServletException {
+    public void onStartup(ServletContext servletContext) {
 
     }
 }

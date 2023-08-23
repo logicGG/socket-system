@@ -21,8 +21,6 @@ public class CustomCommandLineRunner implements CommandLineRunner {
     @Autowired
     private UserInfoService userInfoService;
 
-    //    @Autowired
-//    private WebSocketServiceImpl webSocketService;
     @Override
     public void run(String... args) {
         //初始化角色

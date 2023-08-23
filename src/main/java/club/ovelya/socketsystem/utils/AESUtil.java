@@ -1,19 +1,18 @@
 package club.ovelya.socketsystem.utils;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 /**
  * @version V1.0 &#064;desc  AES 加密工具类
@@ -45,16 +44,23 @@ public class AESUtil {
    * @return 返回Base64转码后的加密数据
    */
   public static String encrypt(String content) {
+    return encode(content, ASSETS_DEV_PWD_FIELD);
+  }
+
+  public static String encrypt(String content, String assetsDevPwdField) {
+    return encode(content, assetsDevPwdField);
+  }
+
+  private static String encode(String content, String assetsDevPwdField) {
     try {
       Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);// 创建密码器
       byte[] byteContent = content.getBytes(StandardCharsets.UTF_8);
-      cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(ASSETS_DEV_PWD_FIELD));// 初始化为加密模式的密码器
+      cipher.init(Cipher.ENCRYPT_MODE, getSecretKey(assetsDevPwdField));// 初始化为加密模式的密码器
       byte[] result = cipher.doFinal(byteContent);// 加密
       return encoder.encodeToString(result);//通过Base64转码返回
     } catch (Exception e) {
-      log.error(e.getMessage());
+      log.debug(e.getMessage());
     }
-
     return null;
   }
 
@@ -65,19 +71,25 @@ public class AESUtil {
    * @return 明文
    */
   public static String decrypt(String content) {
+    return decode(content, ASSETS_DEV_PWD_FIELD);
+  }
 
+  public static String decrypt(String content, String assetsDevPwdField) {
+    return decode(content, assetsDevPwdField);
+  }
+
+  private static String decode(String content, String assetsDevPwdField) {
     try {
       //实例化
       Cipher cipher = Cipher.getInstance(DEFAULT_CIPHER_ALGORITHM);
       //使用密钥初始化，设置为解密模式
-      cipher.init(Cipher.DECRYPT_MODE, getSecretKey(ASSETS_DEV_PWD_FIELD));
+      cipher.init(Cipher.DECRYPT_MODE, getSecretKey(assetsDevPwdField));
       //执行操作
       byte[] result = cipher.doFinal(decoder.decode(content));
       return new String(result, StandardCharsets.UTF_8);
     } catch (Exception e) {
-      log.error(e.getMessage());
+      log.debug(e.getMessage());
     }
-
     return null;
   }
 
@@ -99,7 +111,7 @@ public class AESUtil {
       SecretKey secretKey = kg.generateKey();
       return new SecretKeySpec(secretKey.getEncoded(), KEY_ALGORITHM);// 转换为AES专用密钥
     } catch (NoSuchAlgorithmException e) {
-      log.error(e.getMessage());
+      log.debug(e.getMessage());
     }
     return null;
   }

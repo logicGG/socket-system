@@ -7,18 +7,17 @@ import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
 import club.ovelya.socketsystem.utils.AESUtil;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
@@ -45,7 +44,7 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public void loginUser(UsernamePasswordToken usernamePasswordToken) {
+  public String loginUser(UsernamePasswordToken usernamePasswordToken) {
     String usernameOrEmail = usernamePasswordToken.getUsername();
     if ("".equals(usernameOrEmail)) {
       throw new RuntimeException("用户名不能为空");
@@ -59,6 +58,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     userInfo.setLastLoginTime(LocalDateTime.now());
     userInfo.setLastLoginIP(subject.getSession().getHost());
     userInfoRepository.save(userInfo);
+    return AESUtil.encrypt(userInfo.getUsername(), userInfo.getPassword());
   }
 
   @Override

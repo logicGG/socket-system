@@ -13,7 +13,12 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Validated
@@ -28,8 +33,8 @@ public class UserController {
   @PostMapping("/login")
   public R<?> login(@RequestBody UsernamePasswordToken usernamePasswordToken) {
     try {
-      userInfoService.loginUser(usernamePasswordToken);
-      return R.success();
+      String token = userInfoService.loginUser(usernamePasswordToken);
+      return R.custom(200, null, token);
     } catch (IncorrectCredentialsException e) {
       return R.custom(HttpStatusUtils.UNAUTHORIZED, "密码错误", null);
     } catch (Exception e) {
