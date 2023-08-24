@@ -7,6 +7,8 @@ import club.ovelya.socketsystem.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -77,6 +79,7 @@ public class UserController {
   @Operation(summary = "验证邮箱")
   @GetMapping("/verify/{encodeUsername}")
   public R<?> verify(@PathVariable String encodeUsername) {
+    encodeUsername = URLDecoder.decode(encodeUsername, StandardCharsets.UTF_8);
     try {
       userInfoService.verifyUser(encodeUsername);
       return R.success();
