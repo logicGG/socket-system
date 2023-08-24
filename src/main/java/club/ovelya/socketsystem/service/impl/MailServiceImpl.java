@@ -4,6 +4,8 @@ import club.ovelya.socketsystem.service.MailService;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import jakarta.validation.constraints.Email;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -59,7 +61,9 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendVerifyMail(String to, String encodeUsername) {
         Context context = new Context();
-        context.setVariable("url", baseUrl + ":" + port + "/user/verify/" + encodeUsername);
+        String urlStr = baseUrl + ":" + port + "/user/verify/" + encodeUsername;
+        String encodedUrl = URLEncoder.encode(urlStr, StandardCharsets.UTF_8);
+        context.setVariable("url", encodedUrl);
         String emailContent = templateEngine.process("emailTemplate", context);
         sendHtmlMail(to, "【ovelya】账号验证邮件", emailContent);
     }

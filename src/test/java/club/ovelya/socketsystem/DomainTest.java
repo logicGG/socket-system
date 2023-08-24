@@ -1,16 +1,15 @@
 package club.ovelya.socketsystem;
 
-import lombok.extern.slf4j.Slf4j;
+import club.ovelya.socketsystem.utils.AESUtil;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-@Slf4j
+
 public class DomainTest {
 
 
     @Test
     public void userInfoRepositoryTest() {
+      System.out.println(AESUtil.encrypt("wshjgg", "ovelya@aes"));
     }
 
 }
