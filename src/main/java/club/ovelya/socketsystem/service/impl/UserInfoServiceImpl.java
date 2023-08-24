@@ -97,7 +97,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
   @Override
   public void verifyUser(String encodeURL) {
-    String encodeUsername = URLDecoder.decode(encodeURL, StandardCharsets.UTF_8);
+    //两次反转义才会得到原文
+    String middleEncode = URLDecoder.decode(encodeURL, StandardCharsets.UTF_8);
+    String encodeUsername = URLDecoder.decode(middleEncode, StandardCharsets.UTF_8);
     String decodeUsername = AESUtil.decrypt(encodeUsername);
     UserInfo userInfo = userInfoRepository.findByUsername(decodeUsername);
     if (userInfo.getState() == 1) {
