@@ -128,8 +128,9 @@ public class WebSocket {
   @OnOpen
   public void onOpen(Session session, @PathParam(value = "username") String username,
       @PathParam(value = "token") String token) {
+    String deToken = token.replace("@", "/");
     UserInfo userInfo = userInfoRepository.findByUsername(username);
-    String decrypted = AESUtil.decrypt(token, userInfo.getPassword());
+    String decrypted = AESUtil.decrypt(deToken, userInfo.getPassword());
     if (decrypted == null || !decrypted.equals(username)) {
       sendTextBySession(session, "没有授权，即将断开连接");
       closeBySession(session);

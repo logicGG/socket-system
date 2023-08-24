@@ -58,7 +58,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     userInfo.setLastLoginTime(LocalDateTime.now());
     userInfo.setLastLoginIP(subject.getSession().getHost());
     userInfoRepository.save(userInfo);
-    return AESUtil.encrypt(userInfo.getUsername(), userInfo.getPassword());
+    return AESUtil.encrypt(userInfo.getUsername(), userInfo.getPassword()).replace("/", "@");
   }
 
   @Override
