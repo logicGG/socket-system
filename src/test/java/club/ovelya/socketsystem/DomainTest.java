@@ -1,6 +1,7 @@
 package club.ovelya.socketsystem;
 
-import club.ovelya.socketsystem.utils.AESUtil;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 
 
@@ -9,7 +10,9 @@ public class DomainTest {
 
     @Test
     public void userInfoRepositoryTest() {
-      System.out.println(AESUtil.encrypt("wshjgg", "ovelya@aes"));
+      String urlStr = "//123";
+      String encodedUrl = URLEncoder.encode(urlStr, StandardCharsets.UTF_8);
+      System.out.println(encodedUrl);
     }
 
 }

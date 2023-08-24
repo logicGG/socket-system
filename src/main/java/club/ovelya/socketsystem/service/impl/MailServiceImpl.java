@@ -61,9 +61,9 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendVerifyMail(String to, String encodeUsername) {
         Context context = new Context();
-        String urlStr = baseUrl + ":" + port + "/user/verify/" + encodeUsername;
-        String encodedUrl = URLEncoder.encode(urlStr, StandardCharsets.UTF_8);
-        context.setVariable("url", encodedUrl);
+        String urlStr = baseUrl + ":" + port + "/user/verify/";
+        String encodedUrl = URLEncoder.encode(encodeUsername, StandardCharsets.UTF_8);
+        context.setVariable("url", urlStr + encodedUrl);
         String emailContent = templateEngine.process("emailTemplate", context);
         sendHtmlMail(to, "【ovelya】账号验证邮件", emailContent);
     }
