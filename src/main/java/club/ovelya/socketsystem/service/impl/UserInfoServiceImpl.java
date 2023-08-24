@@ -7,8 +7,6 @@ import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
 import club.ovelya.socketsystem.utils.AESUtil;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -96,11 +94,9 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public void verifyUser(String encodeURL) {
-    //两次反转义才会得到原文
-    String middleEncode = URLDecoder.decode(encodeURL, StandardCharsets.UTF_8);
-    String encodeUsername = URLDecoder.decode(middleEncode, StandardCharsets.UTF_8);
-    String decodeUsername = AESUtil.decrypt(encodeUsername);
+  public void verifyUser(String encodeUsername) {
+    String encodeUsernamePlaceRe = encodeUsername.replace("@", "/");
+    String decodeUsername = AESUtil.decrypt(encodeUsernamePlaceRe);
     UserInfo userInfo = userInfoRepository.findByUsername(decodeUsername);
     if (userInfo.getState() == 1) {
       throw new RuntimeException("账号已激活，请勿重复验证");

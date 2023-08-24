@@ -75,20 +75,13 @@ public class UserController {
   }
 
   @Operation(summary = "验证邮箱")
-  @GetMapping("/verify/{encodeURL}")
-  public R<?> verify(@PathVariable String encodeURL) {
+  @GetMapping("/verify/{encodeUsername}")
+  public R<?> verify(@PathVariable String encodeUsername) {
     try {
-      userInfoService.verifyUser(encodeURL);
+      userInfoService.verifyUser(encodeUsername);
       return R.success();
     } catch (Exception e) {
       return R.failMsg(e.getMessage());
     }
-  }
-
-  @Operation(summary = "验证邮箱")
-  @GetMapping("/has/user")
-  public boolean hasUser() {
-    Subject subject = SecurityUtils.getSubject();
-    return subject.hasRole("user");
   }
 }
