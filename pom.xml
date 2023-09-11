@@ -26,6 +26,10 @@
       <groupId>org.springframework.boot</groupId>
     </dependency>
     <dependency>
+      <artifactId>spring-beans</artifactId>
+      <groupId>org.springframework</groupId>
+    </dependency>
+    <dependency>
       <artifactId>spring-boot-starter-mail</artifactId>
       <groupId>org.springframework.boot</groupId>
     </dependency>
@@ -157,10 +161,6 @@
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
       <groupId>org.springdoc</groupId>
       <version>2.2.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
   </dependencies>
   <description>socket-system</description>

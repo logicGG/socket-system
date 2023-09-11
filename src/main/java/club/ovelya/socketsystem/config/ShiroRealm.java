@@ -4,13 +4,17 @@ import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.entity.SysRole;
 import club.ovelya.socketsystem.entity.UserInfo;
 import jakarta.annotation.Resource;
-import org.apache.shiro.authc.*;
+import java.util.List;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-
-import java.util.List;
 
 public class ShiroRealm extends AuthorizingRealm {
 
@@ -33,7 +37,7 @@ public class ShiroRealm extends AuthorizingRealm {
           throws AuthenticationException {
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     String usernameOrEmail = usernamePasswordToken.getUsername();
-    UserInfo user = userInfoRepository.findByUsernameOrEmail(usernameOrEmail);
+    UserInfo user = userInfoRepository.findByUsernameOrEmailOrPhoneNumber(usernameOrEmail);
     if (user == null) {
       throw new UnknownAccountException("用户名错误！");
     }

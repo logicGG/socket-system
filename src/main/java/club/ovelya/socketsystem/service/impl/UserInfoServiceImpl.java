@@ -4,6 +4,8 @@ import club.ovelya.socketsystem.dao.SysRoleRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.entity.SysRole;
 import club.ovelya.socketsystem.entity.UserInfo;
+import club.ovelya.socketsystem.pojo.dto.LoginDTO;
+import club.ovelya.socketsystem.pojo.dto.RegisterDTO;
 import club.ovelya.socketsystem.service.MailService;
 import club.ovelya.socketsystem.service.UserInfoService;
 import club.ovelya.socketsystem.utils.AESUtil;
@@ -16,6 +18,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +34,9 @@ public class UserInfoServiceImpl implements UserInfoService {
   private MailService mailService;
 
   @Override
-  public void registerUser(UserInfo userInfo) {
+  public void registerUser(RegisterDTO registerDTO) {
+    UserInfo userInfo = new UserInfo();
+    BeanUtils.copyProperties(registerDTO, userInfo);
     if (userInfoRepository.findByUsername(userInfo.getUsername()) != null) {
       throw new RuntimeException("用户名已存在！");
     }
@@ -44,7 +49,10 @@ public class UserInfoServiceImpl implements UserInfoService {
   }
 
   @Override
-  public String loginUser(UsernamePasswordToken usernamePasswordToken) {
+  public String loginUser(LoginDTO loginDTO) {
+    UsernamePasswordToken usernamePasswordToken = new UsernamePasswordToken();
+    usernamePasswordToken.setUsername(loginDTO.getUsername());
+    usernamePasswordToken.setPassword(loginDTO.getPassword().toCharArray());
     String usernameOrEmail = usernamePasswordToken.getUsername();
     if ("".equals(usernameOrEmail)) {
       throw new RuntimeException("用户名不能为空");
@@ -54,7 +62,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
     Subject subject = SecurityUtils.getSubject();
     subject.login(usernamePasswordToken);
-    UserInfo userInfo = userInfoRepository.findByUsernameOrEmail(usernameOrEmail);
+    UserInfo userInfo = userInfoRepository.findByUsernameOrEmailOrPhoneNumber(usernameOrEmail);
     userInfo.setLastLoginTime(LocalDateTime.now());
     userInfo.setLastLoginIP(subject.getSession().getHost());
     userInfoRepository.save(userInfo);

@@ -9,6 +9,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class RedisConfig implements CachingConfigurer {
 
     @Bean
+    @Override
     public KeyGenerator keyGenerator() {
         return (target, method, params) -> {
             StringBuilder sb = new StringBuilder();

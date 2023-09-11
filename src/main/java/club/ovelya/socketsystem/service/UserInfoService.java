@@ -1,7 +1,7 @@
 package club.ovelya.socketsystem.service;
 
-import club.ovelya.socketsystem.entity.UserInfo;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import club.ovelya.socketsystem.pojo.dto.LoginDTO;
+import club.ovelya.socketsystem.pojo.dto.RegisterDTO;
 
 public interface UserInfoService {
 
@@ -9,17 +9,17 @@ public interface UserInfoService {
   /**
    * 用户注册
    *
-   * @param userInfo 用户对象
+   * @param registerDTO 用户对象
    */
-  void registerUser(UserInfo userInfo);
+  void registerUser(RegisterDTO registerDTO);
 
   /**
    * 用户登录
    *
-   * @param usernamePasswordToken 账号密码
+   * @param loginDTO 账号密码
    * @return websocket的授权码
    */
-  String loginUser(UsernamePasswordToken usernamePasswordToken);
+  String loginUser(LoginDTO loginDTO);
 
   /**
    * 添加角色给用户
