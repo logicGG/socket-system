@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 账号和密码
+ */
 @Builder
 @AllArgsConstructor
 @Getter

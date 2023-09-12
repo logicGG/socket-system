@@ -10,6 +10,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * 注册信息
+ */
 @AllArgsConstructor
 @Builder
 @Getter
