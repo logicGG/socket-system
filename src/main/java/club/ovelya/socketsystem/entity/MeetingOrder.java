@@ -31,6 +31,8 @@ public class MeetingOrder extends AbstractBaseTimeEntity implements Serializable
 
   private Integer addedFee;
 
+  private byte baseFeeType;
+
   private String description;
 
   private byte state = 0;//0未完成 1已完成 2已停止

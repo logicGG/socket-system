@@ -25,5 +25,15 @@ public class PostMeetingDTO {
 
   private String description;
 
-  private Integer baseFee;
+  private Integer baseFee1;
+  private String baseFee1Description;
+  private byte baseFee1Available; //1可用 0不可用
+
+  private Integer baseFee2;
+  private String baseFee2Description;
+  private byte baseFee2Available; //1可用 0不可用
+
+  private Integer baseFee3;
+  private String baseFee3Description;
+  private byte baseFee3Available; //1可用 0不可用
 }

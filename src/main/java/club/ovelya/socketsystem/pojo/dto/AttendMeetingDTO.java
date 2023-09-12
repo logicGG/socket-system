@@ -9,5 +9,8 @@ import lombok.Setter;
 @Setter
 public class AttendMeetingDTO {
 
-  private Integer id;
+  //聚会ID
+  private Integer meetingId;
+
+
 }
