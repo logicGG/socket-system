@@ -6,12 +6,13 @@ import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.entity.MeetingInfo;
 import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.pojo.dto.AttendMeetingDTO;
-import java.util.List;
-import java.util.Optional;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MeetingUserService {
@@ -41,6 +42,6 @@ public class MeetingUserService {
     meetingInfoRepository.save(meetingInfo);
 
     //开订单
-
+    //TODO:设计订单DTO
   }
 }

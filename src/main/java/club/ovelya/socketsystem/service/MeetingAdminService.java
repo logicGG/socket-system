@@ -23,4 +23,5 @@ public class MeetingAdminService {
     BeanUtils.copyProperties(postMeetingDTO, meetingInfo);
     meetingInfoRepository.save(meetingInfo);
   }
+  //TODO:删改查
 }
