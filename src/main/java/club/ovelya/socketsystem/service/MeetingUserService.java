@@ -4,6 +4,7 @@ import club.ovelya.socketsystem.dao.MeetingInfoRepository;
 import club.ovelya.socketsystem.dao.MeetingOrderRepository;
 import club.ovelya.socketsystem.dao.UserInfoRepository;
 import club.ovelya.socketsystem.entity.MeetingInfo;
+import club.ovelya.socketsystem.entity.MeetingOrder;
 import club.ovelya.socketsystem.entity.UserInfo;
 import club.ovelya.socketsystem.pojo.dto.AttendMeetingDTO;
 import org.apache.shiro.SecurityUtils;
@@ -42,6 +43,17 @@ public class MeetingUserService {
     meetingInfoRepository.save(meetingInfo);
 
     //开订单
-    //TODO:设计订单DTO
+    MeetingOrder meetingOrder = new MeetingOrder();
+    byte type = attendMeetingDTO.getType();
+    meetingOrder.setBaseFeeType(type)
+            .setMeetingInfo(meetingInfo)
+            .setDescription(attendMeetingDTO.getDescription())
+            .setUserInfo(userInfo);
+    switch (type) {
+      case 1 -> meetingOrder.setBaseFee(meetingInfo.getBaseFee1());
+      case 2 -> meetingOrder.setBaseFee(meetingInfo.getBaseFee2());
+      case 3 -> meetingOrder.setBaseFee(meetingInfo.getBaseFee3());
+    }
+    meetingOrderRepository.save(meetingOrder);
   }
 }

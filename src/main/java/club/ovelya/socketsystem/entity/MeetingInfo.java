@@ -1,17 +1,14 @@
 package club.ovelya.socketsystem.entity;
 
 import club.ovelya.socketsystem.entity.parent.AbstractBaseTimeEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Getter
@@ -50,5 +47,7 @@ public class MeetingInfo extends AbstractBaseTimeEntity implements Serializable 
 
   @OneToMany
   private List<UserInfo> participants;
+
+  private byte delType = 0;//删除标记
 
 }
