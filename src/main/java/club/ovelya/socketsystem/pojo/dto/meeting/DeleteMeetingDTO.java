@@ -1,4 +1,4 @@
-package club.ovelya.socketsystem.pojo.dto;
+package club.ovelya.socketsystem.pojo.dto.meeting;
 
 import lombok.Getter;
 import lombok.Setter;

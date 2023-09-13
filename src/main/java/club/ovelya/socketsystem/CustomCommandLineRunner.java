@@ -1,10 +1,10 @@
 package club.ovelya.socketsystem;
 
-import club.ovelya.socketsystem.dao.SysRoleRepository;
-import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.entity.SysRole;
-import club.ovelya.socketsystem.pojo.dto.RegisterDTO;
-import club.ovelya.socketsystem.service.UserInfoService;
+import club.ovelya.socketsystem.dao.user.SysRoleRepository;
+import club.ovelya.socketsystem.dao.user.UserInfoRepository;
+import club.ovelya.socketsystem.entity.user.SysRole;
+import club.ovelya.socketsystem.pojo.dto.user.RegisterDTO;
+import club.ovelya.socketsystem.service.user.UserInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -21,6 +21,11 @@ public class CustomCommandLineRunner implements CommandLineRunner {
   @Autowired
   private UserInfoService userInfoService;
 
+  /**
+   * 初始化数据库
+   *
+   * @param args 命令行参数
+   */
   @Override
   public void run(String... args) {
     //初始化角色

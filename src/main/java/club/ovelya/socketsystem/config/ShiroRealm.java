@@ -1,8 +1,8 @@
 package club.ovelya.socketsystem.config;
 
-import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.entity.SysRole;
-import club.ovelya.socketsystem.entity.UserInfo;
+import club.ovelya.socketsystem.dao.user.UserInfoRepository;
+import club.ovelya.socketsystem.entity.user.SysRole;
+import club.ovelya.socketsystem.entity.user.UserInfo;
 import jakarta.annotation.Resource;
 import java.util.List;
 import org.apache.shiro.authc.AuthenticationException;

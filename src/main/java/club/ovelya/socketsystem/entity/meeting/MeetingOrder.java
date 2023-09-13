@@ -1,17 +1,17 @@
-package club.ovelya.socketsystem.entity;
+package club.ovelya.socketsystem.entity.meeting;
 
 import club.ovelya.socketsystem.entity.parent.AbstractBaseTimeEntity;
+import club.ovelya.socketsystem.entity.user.UserInfo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -24,17 +24,17 @@ public class MeetingOrder extends AbstractBaseTimeEntity implements Serializable
   @GeneratedValue
   private Integer orderId;
 
-  @OneToOne
+  @ManyToOne
   private UserInfo userInfo;
 
-  @OneToOne
+  @ManyToOne
   private MeetingInfo meetingInfo;
 
   private Integer baseFee;
 
   private Integer addedFee;
 
-  private byte baseFeeType;
+  private Integer bedType;
 
   private String description;
 

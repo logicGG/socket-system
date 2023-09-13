@@ -1,11 +1,9 @@
-package club.ovelya.socketsystem.pojo.dto;
+package club.ovelya.socketsystem.pojo.dto.meeting;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor
 @Getter
 @Setter
 public class AttendMeetingDTO {
@@ -14,9 +12,9 @@ public class AttendMeetingDTO {
   @NotBlank
   private Integer meetingId;
 
-  //baseFee Type
+  //bedType
   @NotBlank
-  private byte type;
+  private Integer typeId;
 
   private String description;
 

@@ -163,6 +163,11 @@
       <groupId>org.springdoc</groupId>
       <version>2.2.0</version>
     </dependency>
+    <dependency>
+      <artifactId>hutool-all</artifactId>
+      <groupId>cn.hutool</groupId>
+      <version>5.8.21</version>
+    </dependency>
   </dependencies>
   <description>socket-system</description>
   <groupId>club.ovelya</groupId>

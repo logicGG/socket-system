@@ -18,11 +18,11 @@ public class R<T> extends ResponseEntity<Message<?>> {
     }
 
     public static <T> R<T> success() {
-        return new R<>(HttpStatusUtils.SUCCESS, "成功");
+        return new R<>(HttpStatusUtil.SUCCESS, "成功");
     }
 
     public static <T> R<T> failMsg(String msg) {
-        return new R<>(HttpStatusUtils.UNAUTHORIZED, msg);
+        return new R<>(HttpStatusUtil.UNAUTHORIZED, msg);
     }
 
     public static <T> R<T> custom(int code, String msg, T data) {

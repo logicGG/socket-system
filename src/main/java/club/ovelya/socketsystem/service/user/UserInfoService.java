@@ -1,11 +1,12 @@
-package club.ovelya.socketsystem.service;
+package club.ovelya.socketsystem.service.user;
 
-import club.ovelya.socketsystem.dao.SysRoleRepository;
-import club.ovelya.socketsystem.dao.UserInfoRepository;
-import club.ovelya.socketsystem.entity.SysRole;
-import club.ovelya.socketsystem.entity.UserInfo;
-import club.ovelya.socketsystem.pojo.dto.LoginDTO;
-import club.ovelya.socketsystem.pojo.dto.RegisterDTO;
+import club.ovelya.socketsystem.dao.user.SysRoleRepository;
+import club.ovelya.socketsystem.dao.user.UserInfoRepository;
+import club.ovelya.socketsystem.entity.user.SysRole;
+import club.ovelya.socketsystem.entity.user.UserInfo;
+import club.ovelya.socketsystem.pojo.dto.user.LoginDTO;
+import club.ovelya.socketsystem.pojo.dto.user.RegisterDTO;
+import club.ovelya.socketsystem.service.mail.MailService;
 import club.ovelya.socketsystem.utils.AESUtil;
 import java.time.Duration;
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package club.ovelya.socketsystem.service;
+package club.ovelya.socketsystem.service.mail;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

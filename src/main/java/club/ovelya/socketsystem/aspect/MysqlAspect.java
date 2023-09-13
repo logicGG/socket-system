@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 public class MysqlAspect {
 
 
-  @After(value = "execution(* club.ovelya.socketsystem.dao.*.*(..))")
+  @After(value = "execution(* club.ovelya.socketsystem.dao.*.*.*(..))")
   public void mysqlLog(JoinPoint joinPoint) {
     log.debug("MySQL操作,切入点:" + joinPoint.getSignature().toString());
   }

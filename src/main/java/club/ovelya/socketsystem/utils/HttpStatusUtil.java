@@ -1,6 +1,6 @@
 package club.ovelya.socketsystem.utils;
 
-public class HttpStatusUtils {
+public class HttpStatusUtil {
 
   /**
    * 操作成功

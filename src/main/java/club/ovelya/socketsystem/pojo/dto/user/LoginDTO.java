@@ -1,4 +1,4 @@
-package club.ovelya.socketsystem.pojo.dto;
+package club.ovelya.socketsystem.pojo.dto.user;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

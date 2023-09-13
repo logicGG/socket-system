@@ -1,9 +1,9 @@
-package club.ovelya.socketsystem.controller;
+package club.ovelya.socketsystem.controller.user;
 
-import club.ovelya.socketsystem.pojo.dto.LoginDTO;
-import club.ovelya.socketsystem.pojo.dto.RegisterDTO;
-import club.ovelya.socketsystem.service.UserInfoService;
-import club.ovelya.socketsystem.utils.HttpStatusUtils;
+import club.ovelya.socketsystem.pojo.dto.user.LoginDTO;
+import club.ovelya.socketsystem.pojo.dto.user.RegisterDTO;
+import club.ovelya.socketsystem.service.user.UserInfoService;
+import club.ovelya.socketsystem.utils.HttpStatusUtil;
 import club.ovelya.socketsystem.utils.R;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,9 +36,7 @@ public class UserController {
       String token = userInfoService.loginUser(loginDTO);
       return R.custom(200, null, token);
     } catch (IncorrectCredentialsException e) {
-      return R.custom(HttpStatusUtils.UNAUTHORIZED, "密码错误", null);
-    } catch (Exception e) {
-      return R.failMsg(e.getMessage());
+      return R.custom(HttpStatusUtil.UNAUTHORIZED, "密码错误", null);
     }
   }
 
@@ -55,33 +53,21 @@ public class UserController {
   @Operation(summary = "用户注册")
   @PostMapping("/register")
   public R<?> tregister(@Valid @RequestBody RegisterDTO registerDTO) {
-    try {
-      userInfoService.registerUser(registerDTO);
-      return R.success();
-    } catch (Exception e) {
-      return R.failMsg(e.getMessage());
-    }
+    userInfoService.registerUser(registerDTO);
+    return R.success();
   }
 
   @Operation(summary = "请求发送验证邮件")
   @PutMapping("/verify")
   public R<?> sendVerifyMail() {
-    try {
-      userInfoService.sendVerifyMail();
-      return R.success();
-    } catch (Exception e) {
-      return R.failMsg(e.getMessage());
-    }
+    userInfoService.sendVerifyMail();
+    return R.success();
   }
 
   @Operation(summary = "验证邮箱")
   @PutMapping("/verify/{encodeUsername}")
   public R<?> verify(@PathVariable String encodeUsername) {
-    try {
-      userInfoService.verifyUser(encodeUsername);
-      return R.success();
-    } catch (Exception e) {
-      return R.failMsg(e.getMessage());
-    }
+    userInfoService.verifyUser(encodeUsername);
+    return R.success();
   }
 }
