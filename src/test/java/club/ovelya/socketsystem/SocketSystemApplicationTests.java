@@ -8,10 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class SocketSystemApplicationTests {
 
-    @Test
-    void contextLoads() {
-        MeetingAdminService meetingAdminService = new MeetingAdminService();
-        meetingAdminService.putMeeting(new PutMeetingDTO());
-    }
+  @Test
+  void contextLoads() {
+    MeetingAdminService meetingAdminService = new MeetingAdminService();
+    meetingAdminService.putMeeting(new PutMeetingDTO());
+  }
 
 }

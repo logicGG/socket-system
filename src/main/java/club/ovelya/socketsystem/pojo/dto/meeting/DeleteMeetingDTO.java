@@ -6,5 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class DeleteMeetingDTO {
-    private Integer id;
+
+  private Integer id;
 }

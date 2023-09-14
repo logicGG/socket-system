@@ -34,7 +34,7 @@ public class ShiroRealm extends AuthorizingRealm {
 
   @Override
   protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken)
-          throws AuthenticationException {
+      throws AuthenticationException {
     UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) authenticationToken;
     String usernameOrEmail = usernamePasswordToken.getUsername();
     UserInfo user = userInfoRepository.findByUsernameOrEmailOrPhoneNumber(usernameOrEmail);

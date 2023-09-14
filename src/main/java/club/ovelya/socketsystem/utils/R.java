@@ -5,29 +5,29 @@ import org.springframework.http.ResponseEntity;
 
 public class R<T> extends ResponseEntity<Message<?>> {
 
-    public R(HttpStatus status) {
-        super(status);
-    }
+  public R(HttpStatus status) {
+    super(status);
+  }
 
-    public R(int code, String msg, T data) {
-        super(Message.custom(code, msg, data), Message.num2HttpStatus(code));
-    }
+  public R(int code, String msg, T data) {
+    super(Message.custom(code, msg, data), Message.num2HttpStatus(code));
+  }
 
-    public R(int code, String msg) {
-        super(Message.custom(code, msg), Message.num2HttpStatus(code));
-    }
+  public R(int code, String msg) {
+    super(Message.custom(code, msg), Message.num2HttpStatus(code));
+  }
 
-    public static <T> R<T> success() {
-        return new R<>(HttpStatusUtil.SUCCESS, "成功");
-    }
+  public static <T> R<T> success() {
+    return new R<>(HttpStatusUtil.SUCCESS, "成功");
+  }
 
-    public static <T> R<T> failMsg(String msg) {
-        return new R<>(HttpStatusUtil.UNAUTHORIZED, msg);
-    }
+  public static <T> R<T> failMsg(String msg) {
+    return new R<>(HttpStatusUtil.UNAUTHORIZED, msg);
+  }
 
-    public static <T> R<T> custom(int code, String msg, T data) {
-        return new R<>(code, msg, data);
-    }
+  public static <T> R<T> custom(int code, String msg, T data) {
+    return new R<>(code, msg, data);
+  }
 }
 
 
